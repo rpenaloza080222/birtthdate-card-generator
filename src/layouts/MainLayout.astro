@@ -1,0 +1,48 @@
+---
+type Props = {
+  title?: string;
+  description?: string;
+};
+import "@fontsource/bebas-neue";
+import "@fontsource/press-start-2p";
+const {
+  title = "Generador de cartas de cumpleaños",
+  description = "Este es un generador de cartas de cumpleaños generico para esos que se nos olvidan los cumpleaños y quiere dar algo especial y diferente",
+} = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class="h-screen">
+    <div
+      class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"
+    >
+      <div
+        class="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-pink-600 opacity-20 blur-[100px]"
+      >
+      </div>
+    </div>
+    <div
+      class="w-full h-full flex justify-center items-center 2xl:max-w-[60%] 2xl:m-auto p-4"
+    >
+      <slot />
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    font-family: "Bebas Neue", sans-serif;
+  }
+
+  .text-game {
+    font-family: "Press Start 2P", system-ui;
+  }
+</style>
