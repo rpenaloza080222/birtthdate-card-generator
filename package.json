@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.5.5",
     "@astrojs/react": "^3.0.10",
     "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/vercel": "^7.3.1",
     "@fontsource/bebas-neue": "^5.0.18",
     "@fontsource/metrophobic": "^5.0.18",
     "@fontsource/press-start-2p": "^5.0.18",
