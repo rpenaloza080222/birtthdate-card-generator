@@ -1,7 +1,7 @@
 ---
-import Chronometer from "../components/Chronometer";
+import Chronometer from "../components/react/Chronometer";
 import MainLayout from "../layouts/MainLayout.astro";
-import localProfilemage from "../images/profile-r.png";
+import localProfilemage from "../images/profile-r.webp";
 
 const currentYear = new Date().getFullYear()
 const date = `${currentYear}-07-27`
@@ -20,7 +20,7 @@ const date = `${currentYear}-07-27`
         <img
           src={localProfilemage.src}
           alt={`Foto cumpleaños Roibert Peñaloza`}
-          class="w-full h-full rounded-xl overflow-hidden"
+          class="w-full h-full rounded-xl overflow-hidden animate-fade-in"
         />
       </div>
       <div
@@ -33,7 +33,7 @@ const date = `${currentYear}-07-27`
           class={`
 		 	name font-bold text-3xl md:text-5xl transition-all duration-300 block bg-clip-text text-transparent
 			bg-gradient-to-r from-black from-[20%] via-pink-500 via-[40%] to-black to-[80%]
-		  `}>Roibert Peñaloza</span
+		  `}>Mayer José Peñaloza Mendoza</span
         >
       </div>
     </div>
@@ -50,13 +50,6 @@ const date = `${currentYear}-07-27`
 
 <style>
   .name {
-    /* background: linear-gradient(
-      to right,
-      #000000 20%,
-      rgb(219, 39, 54) 40%,
-      rgb(219, 39, 54) 60%,
-      #000000 80%
-    ); */
     animation: shine 3s linear infinite;
     background-size: 200% auto;
     background-clip: text;

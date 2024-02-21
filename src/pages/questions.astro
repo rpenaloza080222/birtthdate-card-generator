@@ -1,0 +1,44 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+const search = Astro.url.searchParams.get("client")! || "";
+console.log(search);
+---
+
+<MainLayout>
+  <div class="gap-8 flex flex-col">
+    <h1 class="text-3xl text-balance text-center">
+      ¿Cuál es el nombre del cumpleañer@?
+    </h1>
+    <div class="questions flex flex-col gap-3">
+      <input
+        type="text"
+        id="first_name"
+        class="bg-gray-50 border focus:shadow focus:border-none outline-none  focus:shadow-pink-300 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-4 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Nombre de la persona"
+        required
+      />
+      <div class="flex justify-end">
+        <button
+          type="button"
+          class="text-white size-12 justify-center bg-pink-500 hover:bg-pink-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2"
+        >
+          <svg
+            class="w-4 h-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"></path>
+          </svg>
+          <span class="sr-only">Icon description</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</MainLayout>

@@ -16,6 +16,7 @@
     "@fontsource/bebas-neue": "^5.0.18",
     "@fontsource/metrophobic": "^5.0.18",
     "@fontsource/press-start-2p": "^5.0.18",
+    "@midudev/tailwind-animations": "^0.0.7",
     "@types/react": "^18.2.57",
     "@types/react-dom": "^18.2.19",
     "astro": "^4.4.1",
