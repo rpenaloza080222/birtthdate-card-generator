@@ -10,7 +10,7 @@ const ChronometerTime: React.FC<ChronometerTimeProps> = ({ time, label, classNam
             <span className="p-3 text-game font-bold text-2xl flex justify-center items-center bg-slate-100 shadow-md rounded">
                 {time}
             </span>
-            <span className='text-xl text-pink-500 normal-case'>{label}</span>
+            <span className='text-xl text-red-700 normal-case'>{label}</span>
         </div>
     </>
 }

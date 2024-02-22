@@ -5,11 +5,13 @@ import localProfilemage from "../images/profile-r.webp";
 
 const currentYear = new Date().getFullYear()
 const date = `${currentYear}-07-27`
+
+const color = "red-500"
 ---
 
-<MainLayout>
+<MainLayout color={color}>
   <div
-    class="h-full w-full flex flex-col justify-center pt-11 items-center gap-5"
+    class="h-full w-full flex flex-col justify-center pt-11 items-center gap-5 "
   >
     <Chronometer date={date} client:load />
 
@@ -32,7 +34,7 @@ const date = `${currentYear}-07-27`
         <span
           class={`
 		 	name font-bold text-3xl md:text-5xl transition-all duration-300 block bg-clip-text text-transparent
-			bg-gradient-to-r from-black from-[20%] via-pink-500 via-[40%] to-black to-[80%]
+			bg-gradient-to-r from-black from-[20%] via-${color} via-[40%] to-black to-[80%]
 		  `}>Mayer José Peñaloza Mendoza</span
         >
       </div>
