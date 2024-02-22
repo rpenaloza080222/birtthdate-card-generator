@@ -38,6 +38,9 @@ dependencies:
   astro:
     specifier: ^4.4.1
     version: 4.4.1(typescript@5.3.3)
+  crypto-js:
+    specifier: ^4.2.0
+    version: 4.2.0
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -52,6 +55,9 @@ dependencies:
     version: 5.3.3
 
 devDependencies:
+  '@types/crypto-js':
+    specifier: ^4.2.2
+    version: 4.2.2
   astro-components-cli:
     specifier: ^0.0.18
     version: 0.0.18
@@ -1104,6 +1110,10 @@ packages:
       '@babel/types': 7.23.9
     dev: false
 
+  /@types/crypto-js@4.2.2:
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
+    dev: true
+
   /@types/debug@4.1.12:
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
     dependencies:
@@ -1909,6 +1919,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+    dev: false
+
+  /crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: false
 
   /cssesc@3.0.0:
