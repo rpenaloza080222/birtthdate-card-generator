@@ -37,6 +37,14 @@ const Chronometer: React.FC<Props> = ({ date }) => {
       label
     }
   })
+
+  if (dateResponse.dataClean.days <= 0 &&
+    dateResponse.dataClean.hours <= 0
+    && dateResponse.dataClean.minutes <= 0
+    && dateResponse.dataClean.seconds <= 0
+  ) {
+    return <></>
+  }
   return (
     <div className="flex flex-col md:flex-row items-center gap-5 ">
       <div className="flex gap-3">

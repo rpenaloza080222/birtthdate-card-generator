@@ -1,9 +1,10 @@
 // FormSteps.tsx
-import React, { useState, type EventHandler, type FormEvent } from "react";
+import React, { useState, type FormEvent } from "react";
 import type { FormStep } from "../../resources/types/form-step";
-import "./Form-Step.css"
-import BackgroundCircle from "./BackgroundCircle";
 import BackgroundCircleNotInset from "./BackgroundCircleNotInset";
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css'
+import "./Form-Step.css";
 
 interface Props {
   step: number;
@@ -19,16 +20,17 @@ const FormSteps: React.FC<Props> = ({ step, steps, token }) => {
     event?.preventDefault();
     const data = new FormData(event?.currentTarget);
     let value = ""
-   
-    if (currentStep.type === "text") {
-      value = currentStep.input.name
-     
+
+    if (currentStep.type === "text" || currentStep.type === "textarea") {
+      const inputName = currentStep.type === "text" ? currentStep.input.name : currentStep.name
+      value = data.get(inputName) as string;
+
     }
-    if(currentStep.type === "selectable"){
+    if (currentStep.type === "selectable") {
       value = selectedItem
     }
 
-    const name = currentStep.type === "text" ? currentStep.input.name: currentStep.name
+    const name = currentStep.type === "text" ? currentStep.input.name : currentStep.name
 
     const urlParams = new URLSearchParams()
     const response = await fetch("/api/save-form.json", {
@@ -43,7 +45,7 @@ const FormSteps: React.FC<Props> = ({ step, steps, token }) => {
     console.log(response.newToken)
     urlParams.set("token", response.newToken)
     window.location.href = `/questions?${urlParams.toString()}`
-    
+
   };
 
   const setColorByInput = (color: string) => {
@@ -66,55 +68,59 @@ const FormSteps: React.FC<Props> = ({ step, steps, token }) => {
             required
           />}
           {/* Hacer una grid en desktop y mobile un slide */}
-          <div className="flex w-full  pb-3 md:px-4 items-center slider overflow-auto gap-2 md:gap-4 md:grid md:overflow-hidden md:grid-cols-3 md:place-content-center">
+          {currentStep.type === "textarea" &&
+            <textarea id="message" rows={5} className=" resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name={currentStep.name} placeholder={currentStep.placeholder}></textarea>
+          }
+          {currentStep.type === "date" && <div className="flex justify-center w-full">
+
+            <DayPicker selected={new Date(selectedItem)} onSelect={(event) => setColorByInput(event?.toDateString() ?? "")} mode="single" />
+          </div>}
+          {currentStep.type === "selectable" && <div className="flex w-full pb-3 md:px-4 items-center slider overflow-auto gap-2 md:grid md:overflow-hidden md:grid-cols-3 md:place-content-center">
             {currentStep.type === "selectable" && currentStep.options.map((option) => {
               const currentColor = option.background.replace("bg-", "");
               const otherClasses = ["text-"].map(item => item + currentColor).join(" ");
 
               return <>
-                <label className="w-full min-w-[85%]" onClick={() => setColorByInput(option.value)}>
+                <label key={option.label} className="w-full min-w-[85%]" onClick={() => setColorByInput(option.value)}>
                   <input type="radio" name={currentStep.name} value={option.value} className="hidden" />
-                  <button type="button" key={option.label} className=" group w-full bg-white h-[200px] 
-             border-gray-200 rounded-lg relative shadow-sm cursor-pointer shadow-slate-300 overflow-hidden">
-                    <BackgroundCircleNotInset className={`${selectedItem === option.value ? `selected`: ""}`} color={option.background} />
-                    <div className="p-5">
-                      <a href="#">
-                        <h5 className={`mb-2 text-2xl font-bold tracking-tight group-hover:mix-blend-hard-light ${otherClasses} `}>{option.label}</h5>
-                      </a>
-                    </div>
+                  <button type="button" key={option.label} className=" group w-full bg-white h-[130px] 
+             border-gray-200 rounded-lg flex items-center justify-center relative shadow-sm cursor-pointer shadow-slate-300 overflow-hidden">
+                    <BackgroundCircleNotInset className={`${selectedItem === option.value ? `selected` : ""}`} color={option.background} />
+                    <span className={`mb-2 text-2xl font-bold tracking-tight group-hover:mix-blend-hard-light ${otherClasses} `}>{option.label}</span>
                   </button>
                 </label>
               </>
 
             })}
-        </div>
+          </div>}
 
 
-        <div className="flex justify-end">
-          <button
-            type="submit"
-            className="text-white size-12 md:size-16 justify-center bg-pink-500 hover:bg-pink-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2"
-          >
-            <svg
-              className="w-4 h-4 md:size-8"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 10"
+
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="text-white size-12 md:size-16 justify-center bg-pink-500 hover:bg-pink-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2"
             >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 5h12m0 0L9 1m4 4L9 9"
-              ></path>
-            </svg>
-            <span className="sr-only">Icon description</span>
-          </button>
+              <svg
+                className="w-4 h-4 md:size-8"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                ></path>
+              </svg>
+              <span className="sr-only">Icon description</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </form >
   );
 };

@@ -13,3 +13,15 @@
     scroll-snap-align: center;
   }
 }
+
+.rdp{
+  --rdp-cell-size: 50px; /* Size of the day cells. */
+  --rdp-caption-font-size: 18px; /* Font size for the caption labels. */
+  --rdp-accent-color: theme(colors.pink.500); /* Accent color for the background of selected days. */
+  --rdp-background-color: theme(colors.pink.100); /* Background color for the hovered/focused elements. */
+  --rdp-accent-color-dark: theme(colors.pink.500); /* Accent color for the background of selected days (to use in dark-mode). */
+  --rdp-background-color-dark: theme(colors.pink.100); /* Background color for the hovered/focused elements (to use in dark-mode). */
+  --rdp-outline: 2px solid var(--rdp-accent-color); /* Outline border for focused elements */
+  --rdp-outline-selected: 3px solid var(--rdp-accent-color); /* Outline border for focused _and_ selected elements */
+  --rdp-selected-color: #fff; /* Color of selected day text */
+}

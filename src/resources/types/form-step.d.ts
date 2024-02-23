@@ -22,4 +22,14 @@ export type FormStep = FormStepBase & ({
   type: "selectable",
   name: string,
   options: SelectableFormStepOptions[]
-});
+}
+| {
+  type: "textarea",
+  name: string,
+  placeholder: string
+} | {
+  type: "date",
+  name: string,
+  placeholder: string
+}
+);
