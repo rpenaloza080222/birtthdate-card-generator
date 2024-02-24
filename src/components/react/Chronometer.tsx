@@ -5,10 +5,11 @@ import ChronometerTime from '../react/ChronometerTime';
 
 interface Props {
   date: string;
+  textColor?: string
 }
 
 
-const Chronometer: React.FC<Props> = ({ date }) => {
+const Chronometer: React.FC<Props> = ({ date, textColor="text-pink-500" }) => {
   const dateResponse = useCountdown(date);
 
   const arrayCountdown = new Array(4).fill(0).map((_, index) => {
@@ -48,7 +49,7 @@ const Chronometer: React.FC<Props> = ({ date }) => {
   return (
     <div className="flex flex-col md:flex-row items-center gap-5 ">
       <div className="flex gap-3">
-        {arrayCountdown.map((item) => <ChronometerTime key={item.key} className='animate-fade-in-up animate-delay-500' time={dateResponse[item.key]} label={item.label} />)}
+        {arrayCountdown.map((item) => <ChronometerTime textColor={textColor} key={item.key} className='animate-fade-in-up animate-delay-500' time={dateResponse[item.key]} label={item.label} />)}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import BackgroundCircleNotInset from "./BackgroundCircleNotInset";
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css'
 import "./Form-Step.css";
+import { format } from "date-fns";
 
 interface Props {
   step: number;
@@ -20,17 +21,16 @@ const FormSteps: React.FC<Props> = ({ step, steps, token }) => {
     event?.preventDefault();
     const data = new FormData(event?.currentTarget);
     let value = ""
-
-    if (currentStep.type === "text" || currentStep.type === "textarea") {
-      const inputName = currentStep.type === "text" ? currentStep.input.name : currentStep.name
-      value = data.get(inputName) as string;
-
-    }
-    if (currentStep.type === "selectable") {
-      value = selectedItem
-    }
-
     const name = currentStep.type === "text" ? currentStep.input.name : currentStep.name
+    if (currentStep.type === "text" || currentStep.type === "textarea") {
+      value = data.get(name) as string;
+
+    }
+    if (currentStep.type === "selectable" || currentStep.type === "date") {
+      value = currentStep.type === "date" ?  format(selectedItem, "yyyy-MM-dd"): selectedItem
+    }
+
+    
 
     const urlParams = new URLSearchParams()
     const response = await fetch("/api/save-form.json", {
@@ -44,13 +44,27 @@ const FormSteps: React.FC<Props> = ({ step, steps, token }) => {
     }).then((data) => data.json());
     console.log(response.newToken)
     urlParams.set("token", response.newToken)
-    window.location.href = `/questions?${urlParams.toString()}`
+    if(steps.length - 1 === step){
+      window.location.href = `/preview?${urlParams.toString()}`
+    }else{
+      window.location.href = `/questions?${urlParams.toString()}`
+    }
+    
 
   };
 
   const setColorByInput = (color: string) => {
-    console.log(color)
-    setSelectedItem(color);
+    
+    console.log("Selected", color)
+    let value2;
+    if(currentStep.type === "date"){
+      const currentDate = new Date(`${color} 00:00:00`);
+      console.log(currentDate)
+      value2 = format(currentDate, "yyyy-MM-dd")
+      console.log(value2)
+    }
+    const selectValue = currentStep.type === "date" ? value2 : color
+    setSelectedItem(selectValue);
   }
 
   return (
@@ -73,7 +87,7 @@ const FormSteps: React.FC<Props> = ({ step, steps, token }) => {
           }
           {currentStep.type === "date" && <div className="flex justify-center w-full">
 
-            <DayPicker selected={new Date(selectedItem)} onSelect={(event) => setColorByInput(event?.toDateString() ?? "")} mode="single" />
+            <DayPicker selected={new Date(`${selectedItem} 00:00:00`)} onSelect={(event) => setColorByInput(event?.toDateString() ?? "")} mode="single" />
           </div>}
           {currentStep.type === "selectable" && <div className="flex w-full pb-3 md:px-4 items-center slider overflow-auto gap-2 md:grid md:overflow-hidden md:grid-cols-3 md:place-content-center">
             {currentStep.type === "selectable" && currentStep.options.map((option) => {

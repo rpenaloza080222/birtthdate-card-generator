@@ -1,3 +1,15 @@
+export type BirthdayData = {
+  birthday: string;
+  color: {
+    bgColor: string
+    textColor: string
+    viaColor: string
+  }
+  names: string
+  message: string
+  step: number
+}
+
 export type FormStepOptions = {
   label: string;
   value: string;

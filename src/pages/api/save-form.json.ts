@@ -3,7 +3,7 @@ import { encrypt, decrypt } from "../../resources/utils/crypto";
 
 export const POST: APIRoute = async ({ request }) => {
   const body = await request.json();
-  const { token, key, value, step } = body;
+  let { token, key, value, step } = body;
 
   // Decrypt the token
   console.log(token, import.meta.env.SECRET_KEY)
@@ -15,6 +15,16 @@ export const POST: APIRoute = async ({ request }) => {
     formDataParse = JSON.parse(tokenDecrypted)
   }
   // Add the new key
+  if(key === "color"){
+    const otherColor = value.replace("bg-", "");
+    const textColor = ["text", "-", otherColor].join("")
+    const viaColor = ["via", "-", otherColor].join("")
+    value = {
+      bgColor: value,
+      textColor,
+      viaColor
+    }
+  }
   formDataParse = {
     ...formDataParse,
     [key]: value,
