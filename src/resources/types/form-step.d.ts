@@ -1,3 +1,9 @@
+export type Color ={
+  name: string
+  variants: string[]
+  value: string
+}
+
 export type BirthdayData = {
   birthday: string;
   color: {

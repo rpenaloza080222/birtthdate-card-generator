@@ -3,7 +3,8 @@ import FormSteps from "../components/react/FormSteps";
 import MainLayout from "../layouts/MainLayout.astro";
 import { type FormStep } from "../resources/types/form-step";
 import { decrypt } from "../resources/utils/crypto";
-const token = Astro.url.searchParams.get("token")! || "";
+import { steps } from "../resources/lib/data";
+const token = Astro.url.searchParams.get("token")! ?? "";
 console.log(token);
 
 const decryptData = token ? decrypt(token, import.meta.env.SECRET_KEY) : "";
@@ -13,72 +14,6 @@ const data = decryptData ? JSON.parse(decryptData) : {};
 console.log(data);
 
 const step = data.step ?? 0;
-
-const steps: FormStep[] = [
-  {
-    question: "¿Cuál es el nombre del cumpleañer@?",
-    type: "text",
-    answer: "",
-    input: {
-      name: "names",
-      placeholder: "Nombre de la persona",
-    },
-  },
-  {
-    question: "¿Qué color le gusta?",
-    type: "selectable",
-    name: "color",
-    options: [
-      {
-        label: "Rosado",
-        background: "bg-pink-500",
-        value: "bg-pink-500",
-      },
-      {
-        label: "Rojo",
-        background: "bg-red-500",
-        value: "bg-red-500",
-      },
-      {
-        label: "Verde",
-        background: "bg-green-500",
-        value: "bg-green-500",
-      },
-      {
-        label: "Azul",
-        background: "bg-sky-500",
-        value: "bg-sky-500",
-      },
-      {
-        label: "Fuchsia",
-        background: "bg-fuchsia-500",
-        value: "bg-fuchsia-500",
-      },
-      {
-        label: "Amber",
-        background: "bg-amber-500",
-        value: "bg-amber-500",
-      },
-      {
-        label: "Yellow",
-        background: "bg-yellow-500",
-        value: "bg-yellow-500",
-      },
-    ],
-  },
-  {
-    question: "Dejale un mensaje de cariño para ese ser especial",
-    type: "textarea",
-    name: "message",
-    placeholder: "Mensaje",
-  },
-  {
-    question: "Fecha del cumpleaños",
-    type: "date",
-    name: "birthday",
-    placeholder: "Fecha de cumpleaños",
-  },
-];
 ---
 
 <MainLayout>

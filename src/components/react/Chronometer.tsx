@@ -2,14 +2,18 @@
 import React from 'react';
 import useCountdown, { type CountDownResponse } from '../../resources/react/hooks/useCountdown';
 import ChronometerTime from '../react/ChronometerTime';
-
+import { useEffect } from 'react';
+import * as confetti from 'canvas-confetti';
+import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 interface Props {
   date: string;
   textColor?: string
 }
 
 
-const Chronometer: React.FC<Props> = ({ date, textColor="text-pink-500" }) => {
+const Chronometer: React.FC<Props> = (props) => {
+  const  { date, textColor="text-pink-500" } = props ?? {}
+
   const dateResponse = useCountdown(date);
 
   const arrayCountdown = new Array(4).fill(0).map((_, index) => {
@@ -44,14 +48,17 @@ const Chronometer: React.FC<Props> = ({ date, textColor="text-pink-500" }) => {
     && dateResponse.dataClean.minutes <= 0
     && dateResponse.dataClean.seconds <= 0
   ) {
-    return <></>
+    return <Fireworks autorun={{ speed: 3 }} />
   }
   return (
+    <>
     <div className="flex flex-col md:flex-row items-center gap-5 ">
       <div className="flex gap-3">
         {arrayCountdown.map((item) => <ChronometerTime textColor={textColor} key={item.key} className='animate-fade-in-up animate-delay-500' time={dateResponse[item.key]} label={item.label} />)}
       </div>
     </div>
+    </>
+    
   );
 };
 
