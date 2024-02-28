@@ -6,16 +6,14 @@ export const POST: APIRoute = async ({ request }) => {
   let { token, key, value, step } = body;
 
   // Decrypt the token
-  console.log(token, import.meta.env.SECRET_KEY)
   const tokenDecrypted = decrypt(token, import.meta.env.SECRET_KEY);
   // Parse the string to obtain the current object
-  console.log(tokenDecrypted)
   let formDataParse = {};
-  if(tokenDecrypted){
+  if (tokenDecrypted) {
     formDataParse = JSON.parse(tokenDecrypted)
   }
   // Add the new key
-  if(key === "color"){
+  if (key === "color") {
     const otherColor = value.replace("bg-", "");
     const textColor = ["text", "-", otherColor].join("")
     const viaColor = ["via", "-", otherColor].join("")
@@ -30,8 +28,6 @@ export const POST: APIRoute = async ({ request }) => {
     [key]: value,
     step: step + 1
   };
-
-  console.log(formDataParse)
 
   //Encrypt the new form data
   const newFormEncrypted = encrypt(JSON.stringify(formDataParse), import.meta.env.SECRET_KEY);

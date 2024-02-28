@@ -18,10 +18,8 @@ const useCountdown = (date: string): CountDownResponse => {
   let id = useRef<NodeJS.Timeout | null>(null);
   const calculateFirstDate = (date: string) => {
     const primaryDate = date.split(" ");
-    console.log(primaryDate);
     const dateProps = new Date(
-      `${primaryDate[0]} ${
-        primaryDate.length > 1 ? primaryDate[1] : "00:00:00"
+      `${primaryDate[0]} ${primaryDate.length > 1 ? primaryDate[1] : "00:00:00"
       }`
     );
     const current = new Date();
@@ -53,9 +51,9 @@ const useCountdown = (date: string): CountDownResponse => {
     if (dateWait.dataClean.days <= 0 &&
       dateWait.dataClean.hours <= 0
       && dateWait.dataClean.minutes <= 0
-      && dateWait.dataClean.seconds <= 0){
-        clearInterval(id.current ?? "");
-      }
+      && dateWait.dataClean.seconds <= 0) {
+      clearInterval(id.current ?? "");
+    }
   }, [dateWait])
 
   return dateWait; // Retorna el objeto con los valores de tiempo restantes. Ejemplo: { days: "00", hours: "00", minutes: "00", seconds: "00" }

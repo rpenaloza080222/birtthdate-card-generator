@@ -5,13 +5,10 @@ import { type FormStep } from "../resources/types/form-step";
 import { decrypt } from "../resources/utils/crypto";
 import { steps } from "../resources/lib/data";
 const token = Astro.url.searchParams.get("token")! ?? "";
-console.log(token);
 
 const decryptData = token ? decrypt(token, import.meta.env.SECRET_KEY) : "";
 
 const data = decryptData ? JSON.parse(decryptData) : {};
-
-console.log(data);
 
 const step = data.step ?? 0;
 ---

@@ -27,10 +27,10 @@ const FormSteps: React.FC<Props> = ({ step, steps, token }) => {
 
     }
     if (currentStep.type === "selectable" || currentStep.type === "date") {
-      value = currentStep.type === "date" ?  format(selectedItem, "yyyy-MM-dd"): selectedItem
+      value = currentStep.type === "date" ? format(selectedItem, "yyyy-MM-dd") : selectedItem
     }
 
-    
+
 
     const urlParams = new URLSearchParams()
     const response = await fetch("/api/save-form.json", {
@@ -42,26 +42,21 @@ const FormSteps: React.FC<Props> = ({ step, steps, token }) => {
         step
       })
     }).then((data) => data.json());
-    console.log(response.newToken)
     urlParams.set("token", response.newToken)
-    if(steps.length - 1 === step){
+    if (steps.length - 1 === step) {
       window.location.href = `/preview?${urlParams.toString()}`
-    }else{
+    } else {
       window.location.href = `/questions?${urlParams.toString()}`
     }
-    
+
 
   };
 
   const setColorByInput = (color: string) => {
-    
-    console.log("Selected", color)
-    let value2;
-    if(currentStep.type === "date"){
+    let value2 = "";
+    if (currentStep.type === "date") {
       const currentDate = new Date(`${color} 00:00:00`);
-      console.log(currentDate)
       value2 = format(currentDate, "yyyy-MM-dd")
-      console.log(value2)
     }
     const selectValue = currentStep.type === "date" ? value2 : color
     setSelectedItem(selectValue);

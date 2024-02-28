@@ -4,7 +4,6 @@ export function calcularDiferencia(fecha1: number, fecha2: number) {
 
   // Calcular días, horas, minutos y segundos
   const segundosTotales = Math.floor(diferenciaEnMilisegundos / 1000);
-  console.log(segundosTotales)
   const dias = Math.floor(segundosTotales / (24 * 60 * 60));
   const horas = Math.floor((segundosTotales % (24 * 60 * 60)) / (60 * 60));
   const minutos = Math.floor((segundosTotales % (60 * 60)) / 60);

@@ -4,18 +4,15 @@ type Props = {
   description?: string;
   color?: string;
 };
-import BackgroundCircle from "../components/react/BackgroundCircle"
+import BackgroundCircle from "../components/react/BackgroundCircle";
 import "@fontsource/bebas-neue";
 import "@fontsource/press-start-2p";
-
 
 const {
   title = "Generador de cartas de cumpleaños",
   color = "bg-pink-500",
   description = "Este es un generador de cartas de cumpleaños generico para esos que se nos olvidan los cumpleaños y quiere dar algo especial y diferente",
 } = Astro.props;
-
-console.log(color);
 
 const classesBg = `absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full ${`bg-${color}`} opacity-20 blur-[100px]`;
 ---
@@ -36,15 +33,14 @@ const classesBg = `absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px
       <BackgroundCircle color={color} />
     </div>
     <div
-      class="w-full h-full 2xl:max-w-[60%] grid place-items-center  md:max-w-[60%] md:m-auto 2xl:m-auto md:p-4"
-    
+      class="w-full h-full 2xl:max-w-[60%] grid place-items-center md:max-w-[60%] md:m-auto 2xl:m-auto md:p-4"
     >
       <slot />
     </div>
   </body>
 </html>
 
-<style is:global define:vars={{color}}>
+<style is:global define:vars={{ color }}>
   * {
     font-family: "Bebas Neue", sans-serif;
   }
@@ -52,5 +48,4 @@ const classesBg = `absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px
   .text-game {
     font-family: "Press Start 2P", system-ui;
   }
-
 </style>
