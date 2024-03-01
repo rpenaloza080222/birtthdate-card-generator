@@ -1,5 +1,5 @@
 import React from 'react'
-import useWindowSize from '../../resources/react/hooks/usewindowSize'
+import useWindowSize from '../../resources/react/hooks/useWindowSize'
 import Confetti from 'react-confetti'
 
 const FireworksConfetti = () => {
