@@ -3,6 +3,7 @@ type Props = {
   title?: string;
   description?: string;
   color?: string;
+  image?: string;
 };
 import BackgroundCircle from "../components/react/BackgroundCircle";
 import "@fontsource/bebas-neue";
@@ -11,6 +12,7 @@ import "@fontsource/press-start-2p";
 const {
   title = "Generador de cartas de cumpleaños",
   color = "bg-pink-500",
+  image = "",
   description = "Este es un generador de cartas de cumpleaños generico para esos que se nos olvidan los cumpleaños y quiere dar algo especial y diferente",
 } = Astro.props;
 
@@ -23,8 +25,22 @@ const classesBg = `absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#ccc" />
     <title>{title}</title>
     <meta name="description" content={description} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.url)} />
+
+    <meta name="og:image" content={new URL(image, Astro.url)} />
+    <meta name="og:title" content={title} />
+    <meta name="og:description" content={description} />
+    <meta name="og:url" content={Astro.url} />
+    <meta name="og:site_name" content="Genarador de páginas" />
+    <meta name="og:type" content="website" />
+    <meta name="og:locale" content="es_CO" />
   </head>
   <body class="h-screen">
     <div

@@ -10,7 +10,7 @@ const decryptData = token ? decrypt(token, import.meta.env.SECRET_KEY) : "";
 
 const data = decryptData ? JSON.parse(decryptData) : {};
 
-const { color, birthday, message, names }: BirthdayData = data;
+const { color, birthday, message, names, url }: BirthdayData = data;
 
 const { bgColor, textColor, viaColor } = color;
 
@@ -25,12 +25,18 @@ const dateToCompare = new Date(
 );
 ---
 
-<MainLayout color={bgColor}>
+<MainLayout
+  color={bgColor}
+  title={`Cumpleaños de ${names}`}
+  description={message}
+  image={url}
+>
   <BirthDayCard
     color={viaColor}
     name={names}
     message={message}
     date={format(dateToCompare, "yyyy-MM-dd")}
     textColor={textColor}
+    url={url}
   />
 </MainLayout>
