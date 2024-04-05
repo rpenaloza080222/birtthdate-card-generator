@@ -8,16 +8,8 @@ const date = `${currentYear}-02-28 09:40:00`;
 const color = "bg-pink-500";
 
 const viaColor = "via-pink-500";
+
+Astro.redirect("questions");
 ---
 
-<MainLayout color={color}>
-  <BirthDayCard
-    color={viaColor}
-    name={`Mayer José Peñaloza Mendoza`}
-    message={`Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum fuga
-      saepe commodi, mollitia eum quod a, excepturi ab, tempora impedit
-      officia vero temporibus nulla doloremque laborum numquam nobis aliquam
-      dicta.`}
-    date={date}
-  />
-</MainLayout>
+<MainLayout color={color} />
