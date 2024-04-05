@@ -22,7 +22,7 @@ const classesBg = `absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/cumple-logo-icon.png" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#ccc" />
@@ -39,6 +39,11 @@ const classesBg = `absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px
       itemprop="image"
       content={new URL(image, Astro.url)}
     />
+    <meta
+      name="og:image:secure_url"
+      itemprop="image"
+      content={new URL(image, Astro.url)}
+    />
     <meta name="og:title" content={title} />
     <meta name="og:description" content={description} />
     <meta name="og:url" content={Astro.url} />
@@ -46,8 +51,7 @@ const classesBg = `absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px
     <meta name="og:type" content="website" />
     <meta name="og:locale" content="es_CO" />
     <meta property="og:updated_time" content="1712327759" />
-  </head>
-  <body class="h-screen">
+  </head><body class="h-screen">
     <div
       class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"
     >
@@ -59,14 +63,14 @@ const classesBg = `absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px
       <slot />
     </div>
   </body>
+
+  <style is:global define:vars={{ color }}>
+    * {
+      font-family: "Bebas Neue", sans-serif;
+    }
+
+    .text-game {
+      font-family: "Press Start 2P", system-ui;
+    }
+  </style>
 </html>
-
-<style is:global define:vars={{ color }}>
-  * {
-    font-family: "Bebas Neue", sans-serif;
-  }
-
-  .text-game {
-    font-family: "Press Start 2P", system-ui;
-  }
-</style>
