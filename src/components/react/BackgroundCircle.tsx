@@ -7,7 +7,7 @@ interface Props {
 
 const BackgroundCircle: React.FC<Props> = ({ color }) => {
  
-  return <div className={`absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full ${`${color}`} opacity-20 blur-[100px]`} ></div>;
+  return <div className={`absolute left-0 right-0 top-0 -z-10 m-auto  w-1/2 aspect-square rounded-full ${`${color}`} opacity-20 blur-[100px]`} ></div>;
 };
 
 export default BackgroundCircle;
