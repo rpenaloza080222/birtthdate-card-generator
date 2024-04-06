@@ -1,6 +1,10 @@
 ---
 import localProfilemage from "../images/profile-r.webp";
+import type { BirthdayData } from "../resources/types/form-step";
+import { calcularDiferencia } from "../resources/utils/date";
 import Chronometer from "./react/Chronometer";
+import FancyLine1 from "./FancyLine1.astro"
+import FireworksConfetti from "./react/FireworksConfetti";
 type Props = {
   date: string;
   color?: string;
@@ -8,6 +12,8 @@ type Props = {
   message: string;
   textColor?: string;
   url: string;
+  isBirthdayDay?: boolean;
+  premessage?: string;
 };
 
 const {
@@ -17,19 +23,36 @@ const {
   message,
   textColor = "text-pink-500",
   url,
+  isBirthdayDay = false,
+  premessage,
 } = Astro.props;
 
 const viaColor = color;
 let textClasses =
   "name font-bold text-3xl md:text-5xl transition-all duration-300 block bg-clip-text text-transparent bg-gradient-to-r from-black from-[20%]";
 textClasses += "via-[40%] to-black to-[80%] " + color;
+
+const colorClean = textColor.replace("text-", "");
+const borderButton = `border-${colorClean}`;
+const buttonClasses = `hover:bg-${colorClean} hover:text-white`;
 ---
 
 <div
-  class="h-full w-full flex flex-col justify-center md:pt-11 items-center gap-5"
+  class={`h-full w-full flex flex-col justify-center md:pt-11 items-center gap-5 `}
 >
-  <Chronometer textColor={textColor} date={date} client:only />
-
+  <FancyLine1 
+    width={400}
+    height={50}
+    
+    classes={`${textColor}`}
+  />
+  {
+    !isBirthdayDay ? (
+      <Chronometer textColor={textColor} date={date} client:only />
+    ) : (
+      <FireworksConfetti client:only />
+    )
+  }
   <div
     class="flex flex-col-reverse items-center md:flex-row gap-1 md:gap-10 justify-center w-full"
   >
@@ -37,29 +60,96 @@ textClasses += "via-[40%] to-black to-[80%] " + color;
       <img
         src={url ?? localProfilemage.src}
         alt={`Foto cumpleaños de ${name}`}
-        class="w-full h-full rounded-xl aspect-square overflow-hidden animate-fade-in"
+        class="w-full h-full rounded-xl image-birthday aspect-square overflow-hidden animate-fade-in"
       />
     </div>
     <div
       class="flex flex-col items-center md:justify-center md:items-end md:h-full"
     >
-      <span class="text-2xl md:text-4xl text-center md:text-left w-full">
-        Feliz cumpleaños,</span
-      >
-      <h1 class={textClasses}>
-        {name}
-      </h1>
+      {
+        isBirthdayDay ? (
+          <div>
+            <span class="text-2xl md:text-4xl text-center md:text-left w-full">
+              Feliz cumpleaños,
+            </span>
+            <h1 class={textClasses}>{name}</h1>
+          </div>
+        ) : (
+          <span
+            class:list={[
+              textClasses,
+              "max-w-[30ch] text-center text-pretty mb-4",
+            ]}
+          >
+            {premessage ?? `A la espera de tu cumpleaños, ${name}`}
+          </span>
+        )
+      }
     </div>
   </div>
-  <div class="flex justify-center w-full p-4 md:p-0">
-    <p
-      class="text-slate-900 text-md md:text-2xl text-pretty 2xl:max-w-[50%] md:max-w-[40%]"
+  {
+    isBirthdayDay && (
+      <div class="max-w-[50ch] md:max-w-[75ch] justify-center w-full p-4 md:p-0 animate-fade-in-up animate-delay-500">
+        <p class="text-slate-900 text-md md:text-2xl text-pretty ">{message}</p>
+      </div>
+    )
+  }
+
+  <div class="w-full justify-center flex">
+    
+    <button
+      id="shareButton"
+      class:list={[
+        " h-10 p-4 text-capitalize flex items-center gap-2 justify-center bg-transparent border rounded-lg",
+        borderButton,
+        textColor,
+        buttonClasses,
+      ]}
+      type="button"
     >
-      {message}
-    </p>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        width={16}
+        height={16}
+        viewBox="0 0 448 512"
+        ><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+        <path
+          d="M352 224c53 0 96-43 96-96s-43-96-96-96s-96 43-96 96c0 4 .2 8 .7 11.9l-94.1 47C145.4 170.2 121.9 160 96 160c-53 0-96 43-96 96s43 96 96 96c25.9 0 49.4-10.2 66.6-26.9l94.1 47c-.5 3.9-.7 7.8-.7 11.9c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-25.9 0-49.4 10.2-66.6 26.9l-94.1-47c.5-3.9 .7-7.8 .7-11.9s-.2-8-.7-11.9l94.1-47C302.6 213.8 326.1 224 352 224z"
+        ></path></svg
+      > Compartir
+    </button>
   </div>
+  <FancyLine1 
+  height={50}
+  classes={`rotate-180 ${textColor} hidden md:flex`}
+  class:list={"rotate-90"}
+/>
+ 
 </div>
 <style>
+  .flourish {
+    position: relative;
+    width: 200px;
+    height: 2px;
+    background-color: black;
+  }
+
+  .flourish::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -20px; /* Ajusta la distancia de la curva */
+    width: 20px; /* Ajusta el tamaño de la curva */
+    height: 20px; /* Ajusta el tamaño de la curva */
+    border-top: 2px solid black; /* Color y grosor de la línea curva */
+    border-right: 2px solid black; /* Color y grosor de la línea curva */
+    border-radius: 0 0 0 50%; /* Curva */
+    transform: rotate(-45deg); /* Rotación */
+    background-color: transparent; /* Fondo transparente */
+    content: ""; /* Elimina cualquier otro contenido */
+  }
+
   .name {
     animation: shine 3s linear infinite;
     background-size: 200% auto;
@@ -71,4 +161,47 @@ textClasses += "via-[40%] to-black to-[80%] " + color;
       background-position: 200% center;
     }
   }
+
+  .image-birthday {
+    filter: grayscale(1);
+    transition: filter 0.3s ease-in;
+    animation: grayscale 3s linear 1 both;
+    animation-delay: 1s;
+  }
+
+  @keyframes grayscale {
+    to {
+      filter: grayscale(0);
+    }
+  }
 </style>
+
+<script is:inline type="module">
+  const shareButton = document.querySelector("#shareButton");
+  if (navigator.share) {
+    console.log(navigator.share);
+    if (shareButton) {
+      shareButton.addEventListener("click", async (e) => {
+        e.preventDefault();
+        try {
+          if (navigator.share) {
+            await navigator.share({
+              title: "Mira esta tarjeta",
+              text: "La hice con mucho cariño",
+              url: window.location,
+            });
+            console.log("Contenido compartido con éxito");
+          } else {
+            throw new Error(
+              "La API de Web Share no está disponible en este navegador"
+            );
+          }
+        } catch (error) {
+          console.error("Error al compartir:", error.message);
+        }
+      });
+    }
+  } else {
+    shareButton.remove();
+  }
+</script>

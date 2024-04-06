@@ -18,6 +18,7 @@ const useCountdown = (date: string): CountDownResponse => {
   let id = useRef<NodeJS.Timeout | null>(null);
   const calculateFirstDate = (date: string) => {
     const primaryDate = date.split(" ");
+    
     const dateProps = new Date(
       `${primaryDate[0]} ${primaryDate.length > 1 ? primaryDate[1] : "00:00:00"
       }`

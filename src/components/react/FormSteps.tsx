@@ -26,11 +26,14 @@ const FormSteps: React.FC<Props> = ({ step, steps, token }) => {
       value = data.get(name) as string;
 
     }
+    console.log(selectedItem)
     if (currentStep.type === "selectable" || currentStep.type === "date") {
-      value = currentStep.type === "date" ? format(selectedItem, "yyyy-MM-dd") : selectedItem
+      value = currentStep.type === "date" ? format(new Date(`${selectedItem} 00:00:00`), "yyyy-MM-dd") : selectedItem
     }
 
-
+    if(currentStep.type === "date"){
+      console.log(value)
+    }
 
     const urlParams = new URLSearchParams()
     const response = await fetch("/api/save-form.json", {

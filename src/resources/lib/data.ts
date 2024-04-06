@@ -65,6 +65,12 @@ export const steps: FormStep[] = [
     placeholder: "Mensaje",
   },
   {
+    question: "Deja un mensaje que salga previo al mensaje de cumpleaños",
+    type: "textarea",
+    name: "premessage",
+    placeholder: "Premensaje de cumpleaños",
+  },
+  {
     question: "Fecha del cumpleaños",
     type: "date",
     name: "birthday",

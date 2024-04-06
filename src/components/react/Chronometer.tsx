@@ -10,6 +10,8 @@ interface Props {
 }
 
 
+
+
 const Chronometer: React.FC<Props> = (props) => {
   const { date, textColor = "text-pink-500" } = props ?? {}
 
@@ -47,7 +49,7 @@ const Chronometer: React.FC<Props> = (props) => {
     && dateResponse.dataClean.minutes <= 0
     && dateResponse.dataClean.seconds <= 0
   ) {
-    return <FireworksConfetti />
+    return <></>
   }
   return (
     <>
