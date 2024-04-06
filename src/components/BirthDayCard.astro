@@ -38,13 +38,19 @@ const buttonClasses = `hover:bg-${colorClean} hover:text-white`;
 ---
 
 <div
-  class={`h-full w-full flex flex-col justify-center md:pt-11 items-center gap-5 `}
+  class={`h-full w-full relative flex flex-col justify-center md:pt-11 items-center gap-5 `}
 >
+<FancyLine1 
+width={400}
+height={50}
+
+classes={`${textColor}`}
+/>
   <FancyLine1 
     width={400}
     height={50}
     
-    classes={`${textColor}`}
+    classes={`${textColor} rotate-[270deg] absolute -left-[60%]`}
   />
   {
     !isBirthdayDay ? (
@@ -122,9 +128,10 @@ const buttonClasses = `hover:bg-${colorClean} hover:text-white`;
   </div>
   <FancyLine1 
   height={50}
-  classes={`rotate-180 ${textColor} hidden md:flex`}
+  classes={`rotate-90 ${textColor} absolute -right-[60%]`}
   class:list={"rotate-90"}
 />
+
  
 </div>
 <style>
