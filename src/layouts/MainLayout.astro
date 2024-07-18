@@ -1,3 +1,7 @@
+<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:3660744463. -->
+<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:2852569571. -->
+<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:2231413. -->
+<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:2090148489. -->
 ---
 type Props = {
   title?: string;
@@ -17,6 +21,10 @@ const {
 } = Astro.props;
 
 const classesBg = `absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full ${`bg-${color}`} opacity-20 blur-[100px]`;
+
+const url = new URL(image, Astro.url)
+
+console.log("Url", url)
 ---
 
 <html lang="es">
@@ -32,17 +40,17 @@ const classesBg = `absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(image, Astro.url)} />
+    <meta name="twitter:image" content={image} />
 
     <meta
       name="og:image"
       itemprop="image"
-      content={new URL(image, Astro.url)}
+      content={image}
     />
     <meta
       name="og:image:secure_url"
       itemprop="image"
-      content={new URL(image, Astro.url)}
+      content={image}
     />
     <meta name="og:title" content={title} />
     <meta name="og:description" content={description} />
